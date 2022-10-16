@@ -12,11 +12,11 @@ with open ('C:\\Users\\Алина\\Desktop\\tokens\\token_ya_disc.txt') as file:
 def main(id):
     vk = VK(TOKEN, '5.131')
     ya = YandexDisk(token=TOKEN_ya)
-    photo_dict = dict(vk.get_name_url_max_size(id))
     vk.result_json(id)
     ya.create_folder(id)
-    ya.upload_to_disk(id, photo_dict)
+    ya.upload_to_disk(id, dict(vk.get_name_url_max_size(id)))
 
 
 if __name__ == '__main__':
-    main(id=1)
+    user_id = int(input('Укажите id профиля для получения фото: '))
+    main(id=user_id)

@@ -2,7 +2,16 @@ import json
 import requests
 from datetime import  datetime
 import os
+import time
+from tqdm import tqdm
 
+class Progress:
+    '''создаем прогресс-бар'''
+    def progress(self):
+        my_list = [1, 2, 3]
+        for i in tqdm(my_list):
+            time.sleep(1)
+progress_bar = Progress()
 
 class VK():
     '''создаем класс для работы с VK'''
@@ -52,6 +61,12 @@ class VK():
             data_dict['file_name'] = f'{i}.jpg'
             data_dict['size'] = f'{k[0]}x{k[1]}'
             data_list.append(data_dict)
+        print(f'\nПолучаем фотографии профиля')
+        progress_bar.progress()
+        print(f'\nПолучаем ссылку для фото необходимых размеров')
+        progress_bar.progress()
+        print(f'\nЗаписываем файл result')
+        progress_bar.progress()
 
         with open (FULLPATH, 'w') as file_obj:
             json.dump(data_list, file_obj, indent=4)
@@ -78,8 +93,9 @@ class YandexDisk:
         headers = self.get_headers()
         response = requests.put(create_folder_url, params=create_folder_params, headers=headers)
         if response.status_code == 201:
+            print(f'\nсоздаем папку на диске:')
+            progress_bar.progress()
             print(f'папка {id} создана')
-
 
     def upload_to_disk(self, id, photo_dict):
         '''загрузка фото id в папку на диске'''
@@ -93,4 +109,6 @@ class YandexDisk:
             headers = self.get_headers()
             response = requests.post(upload_url, params=upload_params, headers=headers)
             if response.status_code == 202:
-                print(f'файл {key}.jpg загружен в папку {id}')
+                print(f'\n\nЗагружаем фото {key}:')
+                progress_bar.progress()
+                print(f'\nфайл {key}.jpg загружен в папку {id}')
