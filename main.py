@@ -2,7 +2,7 @@ import requests
 from pprint import pprint
 from classes import VK, YandexDisk
 
-
+'''Указать свой токен'''
 with open('C:\\Users\\Алина\\Desktop\\tokens\\token_vk2.txt') as file:
     TOKEN = file.read().strip()
 with open ('C:\\Users\\Алина\\Desktop\\tokens\\token_ya_disc.txt') as file:
